@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors'; // Added CORS package to talk securely with React frontend
 import connectDB from './config/db.js';
 import patientRoutes from './routes/patientRoutes.js';
+import prescriptionRoutes from './routes/prescriptionRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Main Resource Routing
 app.use('/api/patients', patientRoutes);
+app.use('/api/prescriptions', prescriptionRoutes);
 
 // Simple Health Check
 app.get('/', (req, res) => res.send('MedTrack API is active.'));

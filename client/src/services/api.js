@@ -14,4 +14,9 @@ export const patientService = {
     getById: (id) => API.get(`/patients/${id}`),
 };
 
+export const prescriptionService = {
+  create: (prescriptionData) => API.post('/prescriptions', prescriptionData),
+  getByPatientId: (patientId) => API.get(`/prescriptions/patient/${patientId}`),
+};
+
 export default API;
