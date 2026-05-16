@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast"; // Import the notification anchor
 
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
@@ -10,10 +11,25 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-slate-50 flex flex-col">
-        {/* Top Navigation */}
+        {/* Global Toast Notification Container Configuration */}
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: "#ffffff",
+              color: "#1e293b",
+              fontWeight: "500",
+              borderRadius: "0.75rem",
+              border: "1px solid #e2e8f0",
+              boxShadow:
+                "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+            },
+          }}
+        />
+
         <Navbar />
 
-        {/* Content Area */}
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -22,7 +38,6 @@ function App() {
           </Routes>
         </main>
 
-        {/* Simple Footer */}
         <footer className="py-6 text-center text-slate-400 text-xs border-t bg-white">
           © 2026 MedTrack AI Clinic System
         </footer>
