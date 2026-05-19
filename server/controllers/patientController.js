@@ -64,3 +64,37 @@ export const getPatientById = async (req, res) => {
         res.status(500).json({ message: `Server error: ${error.message}` });
     }
 };
+
+// @desc    Update an existing patient profile
+// @route   PUT /api/patients/:id
+// Inside server/controllers/patientController.js
+
+export const updatePatient = async (req, res) => {
+    try {
+        const { name, age, gender, phone, address, notes } = req.body;
+
+        // 1. Fetch the existing document by ID
+        const patient = await Patient.findById(req.params.id);
+
+        if (!patient) {
+            return res.status(404).json({ message: 'Patient profile not found' });
+        }
+
+        // 2. Manually overwrite the updated properties
+        patient.name = name;
+        patient.age = age;
+        patient.gender = gender;
+        patient.phone = phone || '';
+        patient.address = address;
+        patient.notes = notes;
+
+        // 3. Save the document. This natively returns the fully updated data 
+        // to the 'savedPatient' variable with zero driver warnings!
+        const savedPatient = await patient.save();
+
+        // 4. Stream the freshly saved data straight back to your React frontend
+        res.status(200).json(savedPatient);
+    } catch (error) {
+        res.status(400).json({ message: `Update failed: ${error.message}` });
+    }
+};

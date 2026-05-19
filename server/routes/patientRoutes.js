@@ -2,7 +2,8 @@ import express from 'express';
 import {
     registerPatient,
     getPatients,
-    getPatientById
+    getPatientById,
+    updatePatient
 } from '../controllers/patientController.js';
 
 const router = express.Router();
@@ -14,6 +15,7 @@ router.route('/')
 
 // Route: /api/patients/:id
 router.route('/:id')
-    .get(getPatientById);  // Handles profile load in PatientProfile.jsx
+    .get(getPatientById) // Handles profile load in PatientProfile.jsx
+    .put(updatePatient);
 
 export default router;

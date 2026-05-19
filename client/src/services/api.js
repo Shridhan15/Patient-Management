@@ -12,6 +12,7 @@ export const patientService = {
     register: (patientData) => API.post('/patients', patientData),
     getAll: (searchTerm = '') => API.get(`/patients?search=${searchTerm}`),
     getById: (id) => API.get(`/patients/${id}`),
+    update: (id, patientData) => API.put(`/patients/${id}`, patientData), 
 };
 
 export const prescriptionService = {
