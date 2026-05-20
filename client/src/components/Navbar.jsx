@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ activeDoctor, onLogout }) => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false); // Tracks mobile menu toggle state
 
@@ -44,56 +44,22 @@ const Navbar = () => {
 
           {/* 3. Right Section: Doctor Profile & Hamburger Toggle */}
           <div className="flex items-center justify-end md:w-40 gap-4">
-            {/* Doctor Profile Badge */}
             <div className="flex items-center gap-2 bg-slate-50 p-1.5 md:px-3 md:py-1.5 rounded-lg border border-slate-100">
-              <div className="w-7 h-7 bg-emerald-500 rounded flex items-center justify-center text-white text-xs font-black flex-shrink-0">
-                S
+              <div className="w-7 h-7 bg-emerald-500 rounded flex items-center justify-center text-white text-xs font-black">
+                {activeDoctor?.name ? activeDoctor.name[0].toUpperCase() : "D"}
               </div>
               <span className="text-sm font-bold text-slate-700 hidden lg:block">
-                Dr. Shridhan
+                Dr. {activeDoctor?.name.split(" ")[0]}{" "}
+                {/* Dynamically prints logged-in doctor's first name */}
               </span>
             </div>
 
-            {/* Mobile Hamburger Menu Button */}
+            {/* Optional: Add a subtle logout trigger asset beside it for layout accessibility */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              type="button"
-              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-slate-500 hover:text-slate-800 hover:bg-slate-100 focus:outline-none transition-colors"
-              aria-controls="mobile-menu"
-              aria-expanded="false"
+              onClick={onLogout}
+              className="text-xs font-bold text-red-500 hover:text-red-700 transition-colors"
             >
-              <span className="sr-only">Open main menu</span>
-              {isOpen ? (
-                // Close Icon (X)
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                // Hamburger Menu Icon
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
+              Logout
             </button>
           </div>
         </div>

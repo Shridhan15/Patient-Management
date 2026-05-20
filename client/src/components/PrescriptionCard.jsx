@@ -2,27 +2,36 @@ import React from "react";
 
 const PrescriptionCard = ({ visit }) => {
   return (
-    <div className="card p-4 md:p-6 border border-slate-200 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all bg-white">
+    <div className="card p-2 md:p-4 border border-slate-200 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all bg-white">
       <div>
-        {/* Visit Badge Header */}
-        <div className="flex justify-between items-start border-b border-slate-100 pb-3 mb-4">
-          <div>
-            <span className="text-[10px] md:text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider">
-              Clinical Visit
-            </span>
-            <p className="text-[11px] md:text-xs text-slate-400 mt-1.5 font-medium">
-              🗓️{" "}
-              {new Date(visit.visitDate).toLocaleDateString("en-US", {
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}
-            </p>
+        {/* Visit Badge Header (Now including Time) */}
+        <div className="flex justify-between items-start border-b border-slate-100  mb-2">
+          <div className="flex justify-between items-start  border-slate-100  mb-2">
+            <div>
+              <span className="text-[10px] md:text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full uppercase tracking-wider">
+                Clinical Visit
+              </span>
+              {/* Dynamic Authoring Doctor Mention */}
+              <p className="text-xs font-semibold text-slate-700 mt-0.5">
+                🩺 {visit.doctorId?.name || "Unknown Doctor"} (
+                {visit.doctorId?.specialization})
+              </p>
+              <p className="text-[11px] md:text-xs text-slate-400 mt-0.5 font-medium">
+                🗓️{" "}
+                {new Date(visit.visitDate).toLocaleString("en-US", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Medical Specifics Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4 text-xs md:text-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-2 text-xs md:text-sm">
           <div>
             <p className="text-slate-400 font-semibold text-[10px] md:text-xs uppercase tracking-wider mb-1">
               Symptoms

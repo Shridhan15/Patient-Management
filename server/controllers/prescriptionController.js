@@ -13,6 +13,7 @@ export const createPrescription = async (req, res) => {
 
     const newPrescription = new Prescription({
       patientId,
+      doctorId: req.doctor._id,
       symptoms,
       diagnosis,
       medicines,
@@ -32,10 +33,11 @@ export const createPrescription = async (req, res) => {
 export const getPrescriptionsByPatient = async (req, res) => {
   try {
     const history = await Prescription.find({ patientId: req.params.patientId })
-      .sort({ visitDate: -1 }); // Newest consultations on top of timeline
-    
+      .populate('doctorId', 'name specialization') //  Grabs name & specialty from Doctor collection
+      .sort({ visitDate: -1 });
+
     res.status(200).json(history);
   } catch (error) {
-    res.status(500).json({ message: `Failed to retrieve records: ${error.message}` });
+    res.status(500).json({ message: error.message });
   }
 };

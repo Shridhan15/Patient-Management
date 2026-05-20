@@ -28,7 +28,7 @@ const prescriptionSchema = new mongoose.Schema(
         },
         visitDate: {
             type: Date,
-            default: Date.now  
+            default: Date.now
         },
         symptoms: {
             type: String,
@@ -40,16 +40,22 @@ const prescriptionSchema = new mongoose.Schema(
             required: [true, 'Diagnosis is required'],
             trim: true
         },
-        medicines: [medicineSchema],  
+        medicines: [medicineSchema],
         instructions: {
-            type: String,  
+            type: String,
             trim: true,
             default: ''
         },
         followUpDate: {
             type: Date,
             default: null
-        }
+        },
+        doctorId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Doctor',
+            required: [true, 'A prescription must be linked to a consultation doctor'],
+            index: true // Fast filtering to see "all prescriptions written by Dr. X"
+        },
     },
     {
         timestamps: true

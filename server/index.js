@@ -4,6 +4,7 @@ import cors from 'cors'; // Added CORS package to talk securely with React front
 import connectDB from './config/db.js';
 import patientRoutes from './routes/patientRoutes.js';
 import prescriptionRoutes from './routes/prescriptionRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -17,6 +18,7 @@ app.use(express.json());
 // Main Resource Routing
 app.use('/api/patients', patientRoutes);
 app.use('/api/prescriptions', prescriptionRoutes);
+app.use('/api/auth', authRoutes);
 
 // Simple Health Check
 app.get('/', (req, res) => res.send('MedTrack API is active.'));
